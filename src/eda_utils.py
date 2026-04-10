@@ -5,17 +5,20 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from pathlib import Path
 
-def save_plot(file_name: str, directory: str = "outputs/eda_plots") -> None:
+def save_plot(file_name: str) -> None:
     """
-    Save the current matplotlib figure to a specified directory.
+    Save plot to project-level outputs/eda_plots directory.
+    """
+    # Get project root (parent of notebooks folder)
+    project_root = Path.cwd().parent
 
-    Args:
-        file_name: Name of the file to save (e.g., 'plot.png').
-        directory: Directory where the plot should be stored.
-    """
-    os.makedirs(directory, exist_ok=True)
-    file_path = os.path.join(directory, file_name)
+    output_dir = project_root / "outputs" / "eda_plots"
+    os.makedirs(output_dir, exist_ok=True)
+
+    file_path = output_dir / file_name
+
     plt.savefig(file_path, dpi=300, bbox_inches="tight")
 
 
