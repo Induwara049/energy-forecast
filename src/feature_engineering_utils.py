@@ -1,0 +1,133 @@
+"""Utility functions for feature engineering on the energy dataset."""
+
+import os
+import pandas as pd
+
+
+def create_time_features(energy_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create time-based features from the datetime index.
+
+    Args:
+        energy_df: Input dataset with a datetime index.
+
+    Returns:
+        DataFrame with additional time-based features.
+    """
+    df = energy_df.copy()
+
+    df["hour"] = df.index.hour
+    df["day_of_week"] = df.index.dayofweek
+    df["month"] = df.index.month
+    df["day_of_month"] = df.index.day
+    df["is_weekend"] = df["day_of_week"].isin([5, 6]).astype(int)
+
+    return df
+
+
+def create_lag_features(
+    energy_df: pd.DataFrame,
+    target_column: str,
+    lag_steps: list[int],
+) -> pd.DataFrame:
+    """
+    Create lagged versions of the target column.
+
+    Args:
+        energy_df: Input dataset.
+        target_column: Target column name.
+        lag_steps: List of lag steps to create.
+
+    Returns:
+        DataFrame with lag features added.
+    """
+    df = energy_df.copy()
+
+    for lag in lag_steps:
+        df[f"{target_column}_lag_{lag}"] = df[target_column].shift(lag)
+
+    return df
+
+
+def create_rolling_features(
+    energy_df: pd.DataFrame,
+    target_column: str,
+    window_sizes: list[int],
+) -> pd.DataFrame:
+    """
+    Create rolling mean features for the target column.
+
+    Args:
+        energy_df: Input dataset.
+        target_column: Target column name.
+        window_sizes: List of rolling window sizes.
+
+    Returns:
+        DataFrame with rolling mean features added.
+    """
+    df = energy_df.copy()
+
+    for window in window_sizes:
+        df[f"{target_column}_rolling_mean_{window}"] = (
+            df[target_column].rolling(window=window).mean()
+        )
+
+    return df
+
+
+def create_interaction_features(energy_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create interaction features between selected environmental variables.
+
+    Args:
+        energy_df: Input dataset.
+
+    Returns:
+        DataFrame with interaction features added.
+    """
+    df = energy_df.copy()
+
+    if {"T_out", "RH_out"}.issubset(df.columns):
+        df["T_out_RH_out_interaction"] = df["T_out"] * df["RH_out"]
+
+    if {"T1", "RH_1"}.issubset(df.columns):
+        df["T1_RH_1_interaction"] = df["T1"] * df["RH_1"]
+
+    if {"T2", "RH_2"}.issubset(df.columns):
+        df["T2_RH_2_interaction"] = df["T2"] * df["RH_2"]
+
+    return df
+
+
+def drop_feature_engineering_nulls(energy_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Remove rows containing null values created by lag and rolling operations.
+
+    Args:
+        energy_df: Input dataset.
+
+    Returns:
+        Cleaned DataFrame with null rows removed.
+    """
+    df = energy_df.copy()
+    df = df.dropna()
+
+    return df
+
+
+def save_dataframe(
+    energy_df: pd.DataFrame,
+    file_name: str,
+    directory: str = "outputs/processed",
+) -> None:
+    """
+    Save a DataFrame to CSV in the specified directory.
+
+    Args:
+        energy_df: DataFrame to save.
+        file_name: Output CSV file name.
+        directory: Output directory path.
+    """
+    os.makedirs(directory, exist_ok=True)
+    file_path = os.path.join(directory, file_name)
+    energy_df.to_csv(file_path, index=True)
