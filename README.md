@@ -87,8 +87,7 @@ Models were evaluated using:
 
 ```
 ├── dataset/
-│ ├── train_feature_engineered_data.csv
-│ ├── test_feature_engineered_data.csv
+│ ├── energy_data_set.csv
 │
 ├── notebooks/
 │ ├── 01_eda.ipynb
@@ -106,6 +105,7 @@ Models were evaluated using:
 │
 ├── outputs/
 │ ├── eda_plots/
+│ ├── models/
 │ ├── model_plots/
 │
 ├── requirements.txt
