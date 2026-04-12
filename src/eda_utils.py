@@ -5,16 +5,15 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-from pathlib import Path
+from src.config import OUTPUT_DIR
+#from pathlib import Path
 
 def save_plot(file_name: str) -> None:
     """
     Save plot to project-level outputs/eda_plots directory.
     """
-    # Get project root (parent of notebooks folder)
-    project_root = Path.cwd().parent
 
-    output_dir = project_root / "outputs" / "eda_plots"
+    output_dir = OUTPUT_DIR / "eda_plots"
     os.makedirs(output_dir, exist_ok=True)
 
     file_path = output_dir / file_name
