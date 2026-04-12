@@ -1,9 +1,10 @@
 """Utility functions for baseline and deep learning model development."""
 
 import math
-# import os
-# from pathlib import Path
-from src.config import DATA_DIR
+import joblib
+import os
+from pathlib import Path
+from src.config import DATA_DIR, MODEL_DIR, MODEL_FIG_DIR
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -237,3 +238,50 @@ def save_model_comparison_dataframe(
     file_path = save_dir / file_name
 
     comparison_df.to_csv(file_path, index=False)
+
+
+
+
+def save_sklearn_model(model, file_name: str) -> None:
+    """
+    Save a scikit-learn model to the project-level models directory.
+
+    Args:
+        model: Trained scikit-learn model.
+        file_name: File name to save the model.
+    """
+    save_dir = MODEL_DIR
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    file_path = save_dir / file_name
+    joblib.dump(model, file_path)
+
+
+def save_keras_model(model, file_name: str) -> None:
+    """
+    Save a Keras model to the project-level models directory.
+
+    Args:
+        model: Trained Keras model.
+        file_name: File name to save the model.
+    """
+    save_dir = MODEL_DIR
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    file_path = save_dir / file_name
+    model.save(file_path)
+
+
+def save_model_plot(file_name: str) -> None:
+    """
+    Save the current matplotlib figure to the project-level model plots directory.
+
+    Args:
+        file_name: File name to save the plot.
+        directory: Output directory relative to project root.
+    """
+    save_dir = MODEL_FIG_DIR
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    file_path = save_dir / file_name
+    plt.savefig(file_path, dpi=300, bbox_inches="tight")
