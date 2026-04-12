@@ -6,7 +6,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Data paths
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR = BASE_DIR / "dataset"
 RAW_DATA_FILE = DATA_DIR / "energy_data_set.csv"
 
 # Output paths
