@@ -136,8 +136,8 @@ jupyter notebook
 ```
 5) Run the notebooks in the following order
 
-01_eda.ipynb
-02_feature_engineering.ipynb
-03_preprocessing.ipynb
-04_model_development.ipynb
-05_model_optimization.ipynb
+- 01_eda.ipynb
+- 02_feature_engineering.ipynb
+- 03_preprocessing.ipynb
+- 04_model_development.ipynb
+- 05_model_optimization.ipynb
