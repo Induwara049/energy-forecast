@@ -5,7 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-from src.config import OUTPUT_DIR
+from src.config import EDA_FIG_DIR
 #from pathlib import Path
 
 def save_plot(file_name: str) -> None:
@@ -13,7 +13,7 @@ def save_plot(file_name: str) -> None:
     Save plot to project-level outputs/eda_plots directory.
     """
 
-    output_dir = OUTPUT_DIR / "eda_plots"
+    output_dir = EDA_FIG_DIR
     os.makedirs(output_dir, exist_ok=True)
 
     file_path = output_dir / file_name
