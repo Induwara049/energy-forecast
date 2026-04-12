@@ -1,8 +1,9 @@
 """Utility functions for baseline and deep learning model development."""
 
 import math
-import os
-from pathlib import Path
+# import os
+# from pathlib import Path
+from src.config import DATA_DIR
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -221,7 +222,6 @@ def create_model_comparison_dataframe(
 def save_model_comparison_dataframe(
     comparison_df: pd.DataFrame,
     file_name: str,
-    directory: str = "dataset",
 ) -> None:
     """
     Save the model comparison DataFrame to CSV in a project-level directory.
@@ -229,10 +229,9 @@ def save_model_comparison_dataframe(
     Args:
         comparison_df: DataFrame to save.
         file_name: Output CSV file name.
-        directory: Output directory relative to project root.
     """
-    base_dir = Path(__file__).resolve().parent.parent
-    save_dir = base_dir / directory
+    # base_dir = Path(__file__).resolve().parent.parent
+    save_dir = DATA_DIR
 
     save_dir.mkdir(parents=True, exist_ok=True)
     file_path = save_dir / file_name
