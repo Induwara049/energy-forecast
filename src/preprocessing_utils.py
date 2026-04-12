@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from src.config import DATA_DIR
 
 
 def load_feature_engineered_dataset(file_path: str) -> pd.DataFrame:
@@ -197,7 +198,6 @@ def create_sequences(
 def save_dataframe(
     energy_df: pd.DataFrame,
     file_name: str,
-    directory: str = "dataset",
 ) -> None:
     """
     Save a DataFrame to CSV in the specified project-level directory.
@@ -207,8 +207,8 @@ def save_dataframe(
         file_name: Output CSV file name.
         directory: Output directory path relative to project root.
     """
-    base_dir = Path(__file__).resolve().parent.parent
-    save_dir = base_dir / directory
+    # base_dir = BASE_DIR
+    save_dir = DATA_DIR
 
     save_dir.mkdir(parents=True, exist_ok=True)
     file_path = save_dir / file_name
