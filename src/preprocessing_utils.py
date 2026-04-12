@@ -67,37 +67,6 @@ def summarize_missing_values(energy_df: pd.DataFrame) -> pd.DataFrame:
     return missing_summary_df
 
 
-def clip_outliers_iqr(
-    energy_df: pd.DataFrame,
-    columns: list[str],
-    iqr_multiplier: float = 1.5,
-) -> pd.DataFrame:
-    """
-    Clip outliers in selected numeric columns using the IQR rule.
-
-    Args:
-        energy_df: Input dataset.
-        columns: List of columns to clip.
-        iqr_multiplier: IQR multiplier for outlier boundaries.
-
-    Returns:
-        DataFrame with clipped values.
-    """
-    df = energy_df.copy()
-
-    for column in columns:
-        q1 = df[column].quantile(0.25)
-        q3 = df[column].quantile(0.75)
-        iqr = q3 - q1
-
-        lower_bound = q1 - iqr_multiplier * iqr
-        upper_bound = q3 + iqr_multiplier * iqr
-
-        df[column] = df[column].clip(lower=lower_bound, upper=upper_bound)
-
-    return df
-
-
 def chronological_train_test_split(
     energy_df: pd.DataFrame,
     train_ratio: float = 0.8,
