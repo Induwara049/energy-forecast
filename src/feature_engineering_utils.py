@@ -2,6 +2,7 @@
 
 import os
 import pandas as pd
+from typing import List
 
 
 def create_time_features(energy_df: pd.DataFrame) -> pd.DataFrame:
@@ -160,3 +161,36 @@ def save_dataframe(
     os.makedirs(directory, exist_ok=True)
     file_path = os.path.join(directory, file_name)
     energy_df.to_csv(file_path, index=True)
+
+
+def select_columns(
+    df: pd.DataFrame,
+    columns: List[str],
+    strict: bool = True
+) -> pd.DataFrame:
+    """
+    Select specific columns from a DataFrame.
+
+    Args:
+        df: Input DataFrame.
+        columns: List of column names to select.
+        strict: 
+            - True → raise error if any column is missing
+            - False → ignore missing columns
+
+    Returns:
+        DataFrame with selected columns.
+    """
+
+    if strict:
+        # Ensure all requested columns exist
+        missing_cols = [col for col in columns if col not in df.columns]
+        if missing_cols:
+            raise ValueError(f"Missing columns: {missing_cols}")
+
+        return df[columns]
+
+    else:
+        # Select only available columns
+        available_cols = [col for col in columns if col in df.columns]
+        return df[available_cols]
