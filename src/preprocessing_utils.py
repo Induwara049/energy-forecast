@@ -205,7 +205,6 @@ def save_dataframe(
     Args:
         energy_df: DataFrame to save.
         file_name: Output CSV file name.
-        directory: Output directory path relative to project root.
     """
     # base_dir = BASE_DIR
     save_dir = DATA_DIR
