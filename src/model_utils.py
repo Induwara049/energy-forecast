@@ -154,6 +154,7 @@ def plot_training_history(history) -> None:
     plt.ylabel("Loss")
     plt.legend()
     plt.tight_layout()
+    save_model_plot("Training and Validation Loss")
     plt.show()
 
 
@@ -178,6 +179,7 @@ def plot_actual_vs_predicted(
     plt.ylabel("Appliances")
     plt.legend()
     plt.tight_layout()
+    save_model_plot(title)
     plt.show()
 
 
@@ -242,7 +244,7 @@ def save_model_comparison_dataframe(
 
 
 
-def save_sklearn_model(model, file_name: str) -> None:
+def save_model(model, file_name: str) -> None:
     """
     Save a scikit-learn model to the project-level models directory.
 
@@ -256,20 +258,6 @@ def save_sklearn_model(model, file_name: str) -> None:
     file_path = save_dir / file_name
     joblib.dump(model, file_path)
 
-
-def save_keras_model(model, file_name: str) -> None:
-    """
-    Save a Keras model to the project-level models directory.
-
-    Args:
-        model: Trained Keras model.
-        file_name: File name to save the model.
-    """
-    save_dir = MODEL_DIR
-    save_dir.mkdir(parents=True, exist_ok=True)
-
-    file_path = save_dir / file_name
-    model.save(file_path)
 
 
 def save_model_plot(file_name: str) -> None:
