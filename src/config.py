@@ -11,11 +11,15 @@ RAW_DATA_FILE = DATA_DIR / "energy_data_set.csv"
 
 # Output paths
 OUTPUT_DIR = BASE_DIR / "outputs"
-FIGURES_DIR = OUTPUT_DIR / "figures"
+MODEL_DIR = OUTPUT_DIR / "models"
+MODEL_FIG_DIR = OUTPUT_DIR / "model_plots"
+EDA_FIG_DIR = OUTPUT_DIR / "eda_plots"
 
 # Ensure output directories exist
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+MODEL_FIG_DIR.mkdir(parents=True, exist_ok=True)
+EDA_FIG_DIR.mkdir(parents=True, exist_ok=True)
 
 # Target column
 TARGET_COLUMN = "Appliances"
