@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Data paths
 DATA_DIR = BASE_DIR / "dataset"
-RAW_DATA = DATA_DIR / "raw data"
+RAW_DATA = DATA_DIR / "raw_data"
 PROCESSED_DATA = DATA_DIR / "processed_data"
 RAW_DATA_FILE = RAW_DATA / "energy_data_set.csv"
 
