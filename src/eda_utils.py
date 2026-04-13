@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from src.config import EDA_FIG_DIR
-#from pathlib import Path
 
 def save_plot(file_name: str) -> None:
     """

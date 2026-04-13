@@ -1,8 +1,5 @@
 """Utility functions for preprocessing the energy forecasting dataset."""
 
-import os
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, StandardScaler

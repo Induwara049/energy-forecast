@@ -2,8 +2,6 @@
 
 import math
 import joblib
-import os
-from pathlib import Path
 from src.config import MODEL_RESULTS, MODEL_DIR, MODEL_FIG_DIR
 
 import matplotlib.pyplot as plt
@@ -234,7 +232,6 @@ def save_model_comparison_dataframe(
         comparison_df: DataFrame to save.
         file_name: Output CSV file name.
     """
-    # base_dir = Path(__file__).resolve().parent.parent
     save_dir = MODEL_RESULTS
 
     save_dir.mkdir(parents=True, exist_ok=True)
