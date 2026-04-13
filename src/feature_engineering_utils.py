@@ -3,6 +3,7 @@
 import os
 import pandas as pd
 from typing import List
+from src.config import PROCESSED_DATA
 
 
 def create_time_features(energy_df: pd.DataFrame) -> pd.DataFrame:
