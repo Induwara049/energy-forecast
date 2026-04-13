@@ -4,7 +4,7 @@ import math
 import joblib
 import os
 from pathlib import Path
-from src.config import DATA_DIR, MODEL_DIR, MODEL_FIG_DIR
+from src.config import MODEL_RESULTS, MODEL_DIR, MODEL_FIG_DIR
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -162,6 +162,7 @@ def plot_actual_vs_predicted(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     title: str,
+    file_name: str
 ) -> None:
     """
     Plot actual vs predicted target values.
@@ -179,7 +180,7 @@ def plot_actual_vs_predicted(
     plt.ylabel("Appliances")
     plt.legend()
     plt.tight_layout()
-    save_model_plot(title)
+    save_model_plot(file_name)
     plt.show()
 
 
@@ -234,7 +235,7 @@ def save_model_comparison_dataframe(
         file_name: Output CSV file name.
     """
     # base_dir = Path(__file__).resolve().parent.parent
-    save_dir = DATA_DIR
+    save_dir = MODEL_RESULTS
 
     save_dir.mkdir(parents=True, exist_ok=True)
     file_path = save_dir / file_name

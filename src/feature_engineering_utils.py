@@ -148,7 +148,6 @@ def drop_feature_engineering_nulls(energy_df: pd.DataFrame) -> pd.DataFrame:
 def save_dataframe(
     energy_df: pd.DataFrame,
     file_name: str,
-    directory: str = "../dataset",
 ) -> None:
     """
     Save a DataFrame to CSV in the specified directory.
@@ -158,8 +157,8 @@ def save_dataframe(
         file_name: Output CSV file name.
         directory: Output directory path.
     """
-    os.makedirs(directory, exist_ok=True)
-    file_path = os.path.join(directory, file_name)
+    os.makedirs(PROCESSED_DATA, exist_ok=True)
+    file_path = os.path.join(PROCESSED_DATA, file_name)
     energy_df.to_csv(file_path, index=True)
 
 

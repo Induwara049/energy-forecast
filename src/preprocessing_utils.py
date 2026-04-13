@@ -6,7 +6,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
-from src.config import DATA_DIR
+from src.config import PROCESSED_DATA
 
 
 def load_feature_engineered_dataset(file_path: str) -> pd.DataFrame:
@@ -176,7 +176,7 @@ def save_dataframe(
         file_name: Output CSV file name.
     """
     # base_dir = BASE_DIR
-    save_dir = DATA_DIR
+    save_dir = PROCESSED_DATA
 
     save_dir.mkdir(parents=True, exist_ok=True)
     file_path = save_dir / file_name
