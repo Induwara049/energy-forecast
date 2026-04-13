@@ -3,6 +3,7 @@
 import os
 
 import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
 import pandas as pd
 import seaborn as sns
 from src.config import EDA_FIG_DIR
@@ -187,3 +188,14 @@ def plot_target_distribution(
 
     save_plot(file_name)
     plt.show()   
+
+def acf_plot(
+    energy_df: pd.DataFrame,
+    target_column: str,
+    lags_count: int,
+    file_name: str,
+):
+
+    plot_acf(energy_df[target_column], lags=lags_count)
+    save_plot(file_name)
+    plt.show()

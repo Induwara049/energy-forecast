@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.models import Sequential
@@ -78,9 +78,17 @@ def evaluate_regression_model(
     mae = mean_absolute_error(y_true, y_pred)
     rmse = math.sqrt(mean_squared_error(y_true, y_pred))
 
+    # Avoid division by zero in MAPE
+    y_true_safe = np.where(y_true == 0, 1e-8, y_true)
+    mape = float(np.mean(np.abs((y_true - y_pred) / y_true_safe)) * 100)
+
+    r2 = r2_score(y_true, y_pred)
+
     return {
-        "MAE": mae,
-        "RMSE": rmse,
+    "MAE": round(float(mae), 2),
+    "RMSE": round(float(rmse), 2),
+    "MAPE": round(float(mape), 2),
+    "R2": round(float(r2), 2),
     }
 
 
@@ -204,16 +212,22 @@ def create_model_comparison_dataframe(
                 "model": "Linear Regression",
                 "MAE": linear_metrics["MAE"],
                 "RMSE": linear_metrics["RMSE"],
+                "MAPE":linear_metrics["MAPE"],
+                "R2":linear_metrics["R2"],
             },
             {
                 "model": "Random Forest",
                 "MAE": random_forest_metrics["MAE"],
                 "RMSE": random_forest_metrics["RMSE"],
+                "MAPE":random_forest_metrics["MAPE"],
+                "R2":random_forest_metrics["R2"],
             },
             {
                 "model": "LSTM",
                 "MAE": lstm_metrics["MAE"],
                 "RMSE": lstm_metrics["RMSE"],
+                "MAPE":lstm_metrics["MAPE"],
+                "R2":lstm_metrics["R2"],
             },
         ]
     )
