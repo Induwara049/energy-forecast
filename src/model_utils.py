@@ -162,7 +162,7 @@ def plot_actual_vs_predicted(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     title: str,
-    file_name: str
+    file_name: str,
 ) -> None:
     """
     Plot actual vs predicted target values.
